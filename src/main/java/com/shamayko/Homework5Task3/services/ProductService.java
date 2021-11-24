@@ -1,27 +1,27 @@
 package com.shamayko.Homework5Task3.services;
 
 import com.shamayko.Homework5Task3.data.Product;
-import com.shamayko.Homework5Task3.repositories.ProductRepository;
+import com.shamayko.Homework5Task3.repositories.ProductDaoImplement;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ProductService {
- private ProductRepository productRepository;
+public ProductDaoImplement productDaoImplement;
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductService(ProductDaoImplement productDaoImplement) {
+        this.productDaoImplement = productDaoImplement;
     }
 
-    public List<Product> getAllProducts (){return productRepository.getAllProducts(); }
+    public List<Product> getAllProducts (){return productDaoImplement.findAll(); }
 
-    public void nullById (Long id) {productRepository.nullById(id); }
+    public void nullById (Long id) {productDaoImplement.nullById(id); }
 
     public void changeQuantity(Long id, Integer delta) {
-        Product product = productRepository.getProductById(id);
-        product.setQuantity(product.getQuantity() + delta);
+        productDaoImplement.changeQuantity(id, delta);
     }
 
-    public Float totalCost() {return productRepository.sumByCart(); }
+    public Float totalCost() {return productDaoImplement.sumByCart(); }
+
 }
